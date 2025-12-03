@@ -9,9 +9,9 @@ const Menu = () => {
     <Navbar expand="lg" className="bg-white py-3 shadow-sm sticky-top">
       <Container>
         <Navbar.Brand as={Link} to="/" className="fw-bold fs-3 text-primary">
-            [RollingVet]
+            RollingVet 
         </Navbar.Brand>
-        
+
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         
         <Navbar.Collapse id="basic-navbar-nav">

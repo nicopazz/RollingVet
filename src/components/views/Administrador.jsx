@@ -124,6 +124,13 @@ const Administrador = () => {
                   </span>
                 </td>
                 <td className="text-center">
+                  <Link
+                    to={`/administrador/editar-turno/${turno._id}`}
+                    className="btn btn-warning me-2 btn-sm text-white"
+                    title="Editar"
+                  >
+                    <i className="bi bi-pencil-square"></i>
+                  </Link>
                   <Button
                     variant="danger"
                     className="btn-sm"

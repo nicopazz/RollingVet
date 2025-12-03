@@ -17,6 +17,7 @@ const Menu = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto align-items-center">
             <NavLink end className="nav-item nav-link mx-2" to="/">Inicio</NavLink>
+            <NavLink end className="nav-item nav-link mx-2" to="/acerca-de-nosotros">Nosotros</NavLink>
             <NavLink end className="nav-item nav-link mx-2" to="/administrador">Administrador</NavLink>
             <NavLink end className="nav-item nav-link mx-2" to="/registro">Registro</NavLink>
             <NavLink end className="nav-item nav-link mx-2" to="/login">Login</NavLink>

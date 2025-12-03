@@ -9,6 +9,7 @@ import Registro from './components/views/Registro';
 import Administrador from './components/views/Administrador';
 import Error404 from './components/views/Error404';
 import AcercaDeNosotros from './components/views/AcercaDeNosotros';
+import CrearTurno from './components/views/CrearTurno';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/administrador" element={<Administrador />} />
           <Route path="*" element={<Error404 />} />
           <Route path="/acerca-de-nosotros" element={<AcercaDeNosotros />} />
+          <Route path="/administrador/crear-turno" element={<CrearTurno />} />
           
           <Route path="*" element={<h1 className="text-center my-5">Error 404 - Página no encontrada</h1>} />
         </Routes>

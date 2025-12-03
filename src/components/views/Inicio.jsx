@@ -30,7 +30,7 @@ const Inicio = () => {
                                     RESERVAR TURNO
                                 </Button>
                                 <Button variant="outline-light" size="lg" className="rounded-pill px-4 fw-bold">
-                                    CONTACTARNOS
+                                    CONTACTANOS
                                 </Button>
                             </div>
 

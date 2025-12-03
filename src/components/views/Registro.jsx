@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Container, Card, Form, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { registrarUsuarioAPI } from '../../helpers/queries';
 
 const Registro = () => {
     const [inputs, setInputs] = useState({
@@ -31,6 +32,7 @@ const Registro = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const errs = validate();
+        registrarUsuarioAPI(inputs);
         
         
         if (Object.keys(errs).length > 0) {
@@ -44,7 +46,7 @@ const Registro = () => {
         
         
         alert('¡Registro exitoso! Ahora puedes iniciar sesión con tu cuenta.');
-        navigate('/login'); // Redirigimos al usuario al login
+        navigate('/login'); 
     };
 
     return (

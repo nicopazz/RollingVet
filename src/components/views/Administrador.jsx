@@ -25,9 +25,12 @@ const Administrador = () => {
     if (!usuarioLogueado) {
       navigate("/login");
     } else {
+      
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       consultarAPI();
+     
     }
-  }, []);
+  }, [navigate]);
 
   const borrarTurno = (id) => {
     Swal.fire({

@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { Form, Button, Container, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { crearTurnoAPI } from '../../helpers/queries';
-
+import { crearTurnoAPI, obtenerTurnosAPI } from '../../helpers/queries';
 
 const CrearTurno = () => {
     const [mascota, setMascota] = useState('');
@@ -24,6 +23,55 @@ const CrearTurno = () => {
         }
 
         
+        const fechaActual = new Date();
+        const fechaSeleccionada = new Date(`${fecha}T${hora}`);
+
+        if (fechaSeleccionada < fechaActual) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Fecha inválida',
+                text: 'No puedes asignar un turno en una fecha u hora pasada'
+            });
+            return;
+        }
+
+       
+        Swal.fire({
+            title: 'Verificando disponibilidad...',
+            didOpen: () => Swal.showLoading()
+        });
+
+        
+        const respuestaTurnos = await obtenerTurnosAPI();
+        
+        if (respuestaTurnos && respuestaTurnos.status === 200) {
+            const turnosExistentes = await respuestaTurnos.json();
+            
+            
+            const turnoDuplicado = turnosExistentes.find((turno) => {
+                
+                const fechaTurnoBD = new Date(turno.fecha).toISOString().split('T')[0];
+                return (
+                    fechaTurnoBD === fecha && 
+                    turno.hora === hora && 
+                    turno.veterinario === veterinario
+                );
+            });
+
+            if (turnoDuplicado) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Turno no disponible',
+                    text: `El veterinario ${veterinario} ya tiene un turno asignado para el ${fecha} a las ${hora}.`
+                });
+                return; 
+            }
+        } else {
+            Swal.fire("Error", "No se pudo verificar la disponibilidad, intente nuevamente", "error");
+            return;
+        }
+        
+        
         const nuevoTurno = {
             mascota,
             veterinario, 
@@ -33,13 +81,7 @@ const CrearTurno = () => {
             estado: 'pendiente' 
         };
 
-
-        Swal.fire({
-            title: 'Guardando...',
-            allowOutsideClick: false,
-            didOpen: () => Swal.showLoading()
-        });
-
+       
         const respuesta = await crearTurnoAPI(nuevoTurno);
 
         if(respuesta && respuesta.status === 201){
@@ -49,6 +91,10 @@ const CrearTurno = () => {
             const errorData = await respuesta.json(); 
             Swal.fire("Error", errorData.mensaje || "Ocurrió un error al crear el turno", "error");
         }
+    };
+
+    const handleCancelar = () => {
+        navigate('/administrador');
     };
 
     return (
@@ -100,7 +146,7 @@ const CrearTurno = () => {
                                         type="date"
                                         value={fecha}
                                         onChange={(e) => setFecha(e.target.value)}
-                                        min={new Date().toISOString().split("T")[0]} 
+                                        min={new Date().toISOString().split("T")[0]}
                                     />
                                 </Form.Group>
                             </div>
@@ -116,7 +162,16 @@ const CrearTurno = () => {
                             </div>
                         </div>
 
+                        
                         <div className="text-end">
+                            <Button 
+                                variant="secondary" 
+                                className="me-2" 
+                                onClick={handleCancelar}
+                                type="button"
+                            >
+                                Cancelar
+                            </Button>
                             <Button variant="primary" type="submit" className="px-4">
                                 Guardar Turno
                             </Button>

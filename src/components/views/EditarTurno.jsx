@@ -19,6 +19,7 @@ const EditarTurno = () => {
     
     useEffect(() => {
         cargarDatosTurno();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const cargarDatosTurno = async () => {
@@ -48,6 +49,18 @@ const EditarTurno = () => {
              return;
         }
 
+        const fechaActual = new Date();
+        const fechaSeleccionada = new Date(`${fecha}T${hora}`);
+
+        if (fechaSeleccionada < fechaActual) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Fecha inválida',
+                text: 'No puedes asignar un turno en una fecha u hora pasada'
+            });
+            return;
+        }
+
         const turnoActualizado = {
             mascota,
             veterinario,
@@ -72,6 +85,10 @@ const EditarTurno = () => {
         } else {
             Swal.fire("Error", "Ocurrió un error al editar el turno", "error");
         }
+    };
+
+    const handleCancelar = () => {
+        navigate('/administrador');
     };
 
     return (
@@ -137,8 +154,16 @@ const EditarTurno = () => {
                         </div>
 
                         <div className="text-end">
-                            <Button variant="warning" type="submit" className="px-4">
-                                Guardar Cambios
+                            <Button 
+                                variant="secondary" 
+                                className="me-2" 
+                                onClick={handleCancelar}
+                                type="button"
+                            >
+                                Cancelar
+                            </Button>
+                            <Button variant="primary" type="submit" className="px-4">
+                                Guardar cambios
                             </Button>
                         </div>
                     </Form>

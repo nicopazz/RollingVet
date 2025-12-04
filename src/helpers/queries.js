@@ -120,3 +120,72 @@ export const obtenerTurnoPorIdAPI = async (id) => {
         return false;
     }
 }
+
+// --- SERVICIOS ---
+
+export const obtenerServiciosAPI = async () => {
+    try {
+        const respuesta = await fetch(URL_SERVICIOS);
+        return respuesta;
+    } catch (error) {
+        console.log("Error en obtenerServiciosAPI", error);
+        return false;
+    }
+}
+
+export const crearServicioAPI = async (servicio) => {
+    try {
+        const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioRollingVet')) || {};
+        const token = usuarioLogueado.token;
+        const respuesta = await fetch(URL_SERVICIOS, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "x-token": token },
+            body: JSON.stringify(servicio)
+        });
+        return respuesta;
+    } catch (error) {
+        console.log("Error en crearServicioAPI", error);
+        return false;
+    }
+}
+
+export const borrarServicioAPI = async (id) => {
+    try {
+        const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioRollingVet')) || {};
+        const token = usuarioLogueado.token;
+        const respuesta = await fetch(`${URL_SERVICIOS}/${id}`, {
+            method: "DELETE",
+            headers: { "x-token": token }
+        });
+        return respuesta;
+    } catch (error) {
+        console.log("Error en borrarServicioAPI", error);
+        return false;
+    }
+}
+
+export const obtenerServicioPorIdAPI = async (id) => {
+    try {
+        const respuesta = await fetch(`${URL_SERVICIOS}/${id}`);
+        return respuesta;
+    } catch (error) {
+        console.log("Error en obtenerServicioPorIdAPI", error);
+        return false;
+    }
+}
+
+export const editarServicioAPI = async (servicio, id) => {
+    try {
+        const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioRollingVet')) || {};
+        const token = usuarioLogueado.token;
+        const respuesta = await fetch(`${URL_SERVICIOS}/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json", "x-token": token },
+            body: JSON.stringify(servicio)
+        });
+        return respuesta;
+    } catch (error) {
+        console.log("Error en editarServicioAPI", error);
+        return false;
+    }
+}

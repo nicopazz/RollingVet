@@ -80,6 +80,10 @@ const Administrador = () => {
           >
             <i className="bi bi-calendar-plus me-2"></i>Nuevo Turno
           </Button>
+
+           <Link to="/administrador/crear-servicio" className="btn btn-success rounded-pill text-white ms-2">
+                        <i className="bi bi-tags-fill me-2"></i>Servicios
+                    </Link>
         </div>
       </div>
 

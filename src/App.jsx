@@ -10,6 +10,7 @@ import Error404 from './components/views/Error404';
 import AcercaDeNosotros from './components/views/AcercaDeNosotros';
 import CrearTurno from './components/views/CrearTurno';
 import EditarTurno from './components/views/EditarTurno';
+import CrearServicio from './components/views/CrearServicio';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/administrador" element={<Administrador />} />
           <Route path="/administrador/crear-turno" element={<CrearTurno />} />
           <Route path="/administrador/editar-turno/:id" element={<EditarTurno />} />
+          <Route path="/administrador/crear-servicio" element={<CrearServicio />} />
           
           {/* Ruta de Error (Siempre al final) */}
           <Route path="*" element={<Error404 />} />

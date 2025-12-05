@@ -3,7 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2"; // Importamos SweetAlert
+import Swal from "sweetalert2"; 
 
 const Menu = () => {
   const navigate = useNavigate();
@@ -21,10 +21,8 @@ const Menu = () => {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        
         localStorage.removeItem("usuarioRollingVet");
         
-       
         Swal.fire({
           title: '¡Hasta pronto!',
           text: 'Has cerrado sesión correctamente.',
@@ -33,7 +31,6 @@ const Menu = () => {
           showConfirmButton: false
         });
 
-  
         navigate("/");
       }
     });
@@ -60,8 +57,7 @@ const Menu = () => {
             >
               Nosotros
             </NavLink>
-
-            {usuarioLogueado && (
+            {usuarioLogueado && usuarioLogueado.rol === 'admin' && (
               <NavLink
                 end
                 className="nav-item nav-link mx-2"
@@ -87,15 +83,11 @@ const Menu = () => {
               </>
             ) : (
               <>
-                <NavLink end className="nav-item nav-link mx-2" to="/registro">
-                  Registro
-                </NavLink>
                 <NavLink end className="nav-item nav-link mx-2" to="/login">
-                  Login
+                  Ingresá<i className="bi bi-box-arrow-in-right ms-2 text-primary"></i>
                 </NavLink>
               </>
             )}
-
           </Nav>
         </Navbar.Collapse>
       </Container>

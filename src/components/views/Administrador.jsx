@@ -6,6 +6,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import AdministrarServicios from './AdministrarServicios';
 import AdministrarPacientes from './AdministrarPacientes';
 import AdministrarProfesionales from './AdministrarProfesionales'; 
+import AdministrarUsuarios from './AdministrarUsuarios';
 
 const Administrador = () => {
     const [turnos, setTurnos] = useState([]);
@@ -96,6 +97,14 @@ const Administrador = () => {
                         >
                             <i className="bi bi-people-fill me-3 fs-5"></i> Profesionales
                         </Button>
+
+                        <Button 
+                            variant={vistaActiva === 'usuarios' ? 'info' : 'outline-secondary'} 
+                            className="text-start border-0 py-3 px-4 rounded-3 d-flex align-items-center text-dark"
+                            onClick={() => setVistaActiva('usuarios')}
+                        >
+                            <i className="bi bi-person-badge me-3 fs-5"></i> Usuarios
+                        </Button>
                     </Nav>
 
                     <div className="mt-auto px-3 text-center text-white-50 small">
@@ -180,6 +189,9 @@ const Administrador = () => {
                     {vistaActiva === 'pacientes' && <AdministrarPacientes />}
                     
                     {vistaActiva === 'profesionales' && <AdministrarProfesionales />}
+
+                    {vistaActiva === 'usuarios' && <AdministrarUsuarios />}
+
 
                 </Col>
             </Row>

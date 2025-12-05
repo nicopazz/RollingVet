@@ -19,6 +19,9 @@ import EditarProfesional from './components/views/EditarProfesional';
 import AdministrarPacientes from './components/views/AdministrarPacientes';
 import CrearPaciente from './components/views/CrearPaciente';
 import EditarPaciente from './components/views/EditarPaciente';
+import AdministrarUsuarios from './components/views/AdministrarUsuarios';
+import CrearUsuario from './components/views/CrearUsuario';
+import EditarUsuario from './components/views/EditarUsuario';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -54,6 +57,11 @@ function App() {
           <Route path="/administrador/pacientes" element={<AdministrarPacientes />} />
           <Route path="/administrador/crear-paciente" element={<CrearPaciente />} />
           <Route path="/administrador/editar-paciente/:id" element={<EditarPaciente />} />
+
+          {/* Rutas de Usuarios */}
+          <Route path="/administrador/usuarios" element={<AdministrarUsuarios />} />
+          <Route path="/administrador/crear-usuario" element={<CrearUsuario />} />
+          <Route path="/administrador/editar-usuario/:id" element={<EditarUsuario />} />
           
           {/* Ruta de Error */}
           <Route path="*" element={<Error404 />} />

@@ -3,6 +3,7 @@ const URL_TURNOS = import.meta.env.VITE_API_URL + '/turnos';
 const URL_SERVICIOS = import.meta.env.VITE_API_URL + '/servicios';
 const URL_PROFESIONALES = import.meta.env.VITE_API_URL + '/profesionales';
 const URL_PACIENTES = import.meta.env.VITE_API_URL + '/pacientes';
+const URL_GESTION_USUARIOS = import.meta.env.VITE_API_URL + '/auth/usuarios';
 
 // --- USUARIOS ---
 
@@ -30,6 +31,83 @@ export const loginUsuarioAPI = async (usuario) => {
         return respuesta;
     } catch (error) {
         console.log("Error en loginUsuarioAPI:", error);
+        return false;
+    }
+}
+
+// --- GESTIÓN DE USUARIOS ---
+
+export const obtenerUsuariosAPI = async () => {
+    try {
+        const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioRollingVet')) || {};
+        const token = usuarioLogueado.token;
+        const respuesta = await fetch(URL_GESTION_USUARIOS, {
+            headers: { "x-token": token }
+        });
+        return respuesta;
+    } catch (error) {
+        console.log("Error en obtenerUsuariosAPI", error);
+        return false;
+    }
+}
+
+export const crearUsuarioAdminAPI = async (usuario) => {
+    try {
+        const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioRollingVet')) || {};
+        const token = usuarioLogueado.token;
+        const respuesta = await fetch(URL_GESTION_USUARIOS, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "x-token": token },
+            body: JSON.stringify(usuario)
+        });
+        return respuesta;
+    } catch (error) {
+        console.log("Error en crearUsuarioAdminAPI", error);
+        return false;
+    }
+}
+
+export const borrarUsuarioAPI = async (id) => {
+    try {
+        const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioRollingVet')) || {};
+        const token = usuarioLogueado.token;
+        const respuesta = await fetch(`${URL_GESTION_USUARIOS}/${id}`, {
+            method: "DELETE",
+            headers: { "x-token": token }
+        });
+        return respuesta;
+    } catch (error) {
+        console.log("Error en borrarUsuarioAPI", error);
+        return false;
+    }
+}
+
+export const obtenerUsuarioPorIdAPI = async (id) => {
+    try {
+        const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioRollingVet')) || {};
+        const token = usuarioLogueado.token;
+        const respuesta = await fetch(`${URL_GESTION_USUARIOS}/${id}`, {
+            headers: { "x-token": token }
+        });
+        return respuesta;
+    } catch (error) {
+        console.log("Error en obtenerUsuarioPorIdAPI", error);
+        return false;
+    }
+}
+
+export const editarUsuarioAPI = async (usuario, id) => {
+    try {
+        const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioRollingVet')) || {};
+        const token = usuarioLogueado.token;
+        const respuesta = await fetch(`${URL_GESTION_USUARIOS}/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json", "x-token": token },
+            body: JSON.stringify(usuario)
+        });
+        return respuesta;
+    } catch (error) {
+        console.log("Error en editarUsuarioAPI", error);
         return false;
     }
 }
@@ -309,3 +387,4 @@ export const editarPacienteAPI = async (paciente, id) => {
         return false;
     }
 }
+

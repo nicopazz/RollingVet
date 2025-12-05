@@ -35,8 +35,6 @@ const EditarUsuario = () => {
              return;
         }
 
-        // Nota: No enviamos password si no se cambia. 
-        // Si quieres permitir cambiar password, necesitarías un campo extra y lógica en el backend.
         const usuarioEditado = { nombre, email, role };
         
         Swal.fire({ title: 'Actualizando...', didOpen: () => Swal.showLoading() });

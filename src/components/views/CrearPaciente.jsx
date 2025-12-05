@@ -87,7 +87,7 @@ const CrearPaciente = () => {
 
     if (respuesta && respuesta.status === 201) {
       Swal.fire("Éxito", "Paciente registrado correctamente", "success");
-      navigate("/administrador");
+      navigate('/administrador', { state: { section: 'pacientes' } });
     } else {
     
       const errorData = await respuesta.json();
@@ -102,7 +102,7 @@ const CrearPaciente = () => {
   };
 
   const handleCancelar = () => {
-    navigate("/administrador");
+    navigate('/administrador', { state: { section: 'pacientes' } });
   };
 
   return (

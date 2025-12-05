@@ -34,14 +34,14 @@ const EditarProfesional = () => {
 
         if(respuesta && respuesta.status === 200){
             Swal.fire("Actualizado", "Profesional editado correctamente", "success");
-            navigate('/administrador');
+            navigate('/administrador', { state: { section: 'profesionales' } });
         } else {
             Swal.fire("Error", "No se pudo editar", "error");
         }
     };
 
     const handleCancelar = () => {
-        navigate('/administrador');
+        navigate('/administrador', { state: { section: 'profesionales' } });
     };
 
     return (

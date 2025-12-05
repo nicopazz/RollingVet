@@ -95,13 +95,15 @@ const EditarPaciente = () => {
 
         if(respuesta && respuesta.status === 200){
             Swal.fire("Actualizado", "El paciente fue editado correctamente", "success");
-            navigate('/administrador');
+            navigate('/administrador', { state: { section: 'pacientes' } });
         } else {
             Swal.fire("Error", "No se pudo editar el paciente", "error");
         }
     };
 
-    
+    const handleCancelar = () => {
+        navigate('/administrador', { state: { section: 'pacientes' } });
+    }
 
     return (
         <Container className="mainSection my-5">
@@ -170,7 +172,7 @@ const EditarPaciente = () => {
                         </Row>
 
                         <div className="d-flex justify-content-end gap-2">
-                            <Link to="/administrador" className="btn btn-secondary">Cancelar</Link>
+                            <Button variant="secondary" className="me-2" onClick={handleCancelar}>Cancelar</Button>
                             <Button variant="warning" type="submit">Guardar Cambios</Button>
                         </div>
                     </Form>

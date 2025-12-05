@@ -80,14 +80,14 @@ const EditarServicio = () => {
 
         if(respuesta && respuesta.status === 200){
             Swal.fire("Actualizado", "El servicio fue modificado correctamente", "success");
-            navigate('/administrador');
+            navigate('/administrador', { state: { section: 'servicios' } });
         } else {
             Swal.fire("Error", "Ocurrió un error al editar el servicio", "error");
         }
     };
 
     const handleCancelar = () => {
-        navigate('/administrador');
+        navigate('/administrador', { state: { section: 'servicios' } });
     }
 
     return (

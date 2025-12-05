@@ -79,14 +79,14 @@ const EditarTurno = () => {
 
         if(respuesta && respuesta.status === 200){
             Swal.fire("Actualizado", "El turno fue modificado correctamente", "success");
-            navigate('/administrador');
+            navigate('/administrador', { state: { section: 'turnos' } });
         } else {
             Swal.fire("Error", "Ocurrió un error al editar el turno", "error");
         }
     };
 
     const handleCancelar = () => {
-        navigate('/administrador');
+        navigate('/administrador', { state: { section: 'turnos' } });
     };
 
     return (

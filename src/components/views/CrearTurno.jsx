@@ -101,7 +101,7 @@ const CrearTurno = () => {
 
         if(respuesta && respuesta.status === 201){
             Swal.fire("Éxito", "El turno fue creado correctamente", "success");
-            navigate('/administrador');
+            navigate('/administrador', { state: { section: 'turnos' } });
         } else {
             const errorData = await respuesta.json(); 
             Swal.fire("Error", errorData.mensaje || "Ocurrió un error al crear el turno", "error");
@@ -109,7 +109,7 @@ const CrearTurno = () => {
     };
 
     const handleCancelar = () => {
-        navigate('/administrador');
+        navigate('/administrador', { state: { section: 'turnos' } });
     };
 
     return (

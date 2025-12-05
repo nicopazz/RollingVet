@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Form, Button, Container, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { crearTurnoAPI, obtenerTurnosAPI } from '../../helpers/queries';
+import { crearTurnoAPI, obtenerTurnosAPI, obtenerProfesionalesAPI } from '../../helpers/queries';
 
 const CrearTurno = () => {
     const [mascota, setMascota] = useState('');
@@ -10,19 +10,31 @@ const CrearTurno = () => {
     const [detalleCita, setDetalleCita] = useState('');
     const [fecha, setFecha] = useState('');
     const [hora, setHora] = useState('');
+    const [profesionales, setProfesionales] = useState([]);
     
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const cargarProfesionales = async () => {
+            const respuesta = await obtenerProfesionalesAPI();
+            if (respuesta && respuesta.status === 200) {
+                const lista = await respuesta.json();
+                setProfesionales(lista);
+            }
+        };
+        cargarProfesionales();
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        
+      
         if(!mascota || !veterinario || !detalleCita || !fecha || !hora){
              Swal.fire("Error", "Todos los campos son obligatorios", "error");
              return;
         }
 
-        
+       
         const fechaActual = new Date();
         const fechaSeleccionada = new Date(`${fecha}T${hora}`);
 
@@ -41,15 +53,12 @@ const CrearTurno = () => {
             didOpen: () => Swal.showLoading()
         });
 
-        
         const respuestaTurnos = await obtenerTurnosAPI();
         
         if (respuestaTurnos && respuestaTurnos.status === 200) {
             const turnosExistentes = await respuestaTurnos.json();
             
-            
             const turnoDuplicado = turnosExistentes.find((turno) => {
-                
                 const fechaTurnoBD = new Date(turno.fecha).toISOString().split('T')[0];
                 return (
                     fechaTurnoBD === fecha && 
@@ -62,12 +71,12 @@ const CrearTurno = () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Turno no disponible',
-                    text: `El veterinario ${veterinario} ya tiene un turno asignado para el ${fecha} a las ${hora}.`
+                    text: `El profesional ${veterinario} ya tiene un turno asignado para esa fecha y hora.`
                 });
-                return; 
+                return;
             }
         } else {
-            Swal.fire("Error", "No se pudo verificar la disponibilidad, intente nuevamente", "error");
+            Swal.fire("Error", "No se pudo verificar la disponibilidad", "error");
             return;
         }
         
@@ -81,7 +90,13 @@ const CrearTurno = () => {
             estado: 'pendiente' 
         };
 
-       
+        
+        Swal.fire({
+            title: 'Guardando...',
+            allowOutsideClick: false,
+            didOpen: () => Swal.showLoading()
+        });
+
         const respuesta = await crearTurnoAPI(nuevoTurno);
 
         if(respuesta && respuesta.status === 201){
@@ -116,14 +131,18 @@ const CrearTurno = () => {
                         </Form.Group>
 
                         <Form.Group className="mb-3">
-                            <Form.Label>Veterinario</Form.Label>
+                            <Form.Label>Veterinario / Profesional</Form.Label>
                             <Form.Select 
                                 value={veterinario}
                                 onChange={(e) => setVeterinario(e.target.value)}
                             >
                                 <option value="">Seleccione una opción</option>
-                                <option value="Dr. House">Dr. House</option>
-                                <option value="Dra. Grey">Dra. Grey</option>
+                                
+                                {profesionales.map((profesional) => (
+                                    <option key={profesional._id} value={profesional.nombre}>
+                                        {profesional.nombre} ({profesional.especialidad})
+                                    </option>
+                                ))}
                             </Form.Select>
                         </Form.Group>
 
@@ -162,7 +181,6 @@ const CrearTurno = () => {
                             </div>
                         </div>
 
-                        
                         <div className="text-end">
                             <Button 
                                 variant="secondary" 

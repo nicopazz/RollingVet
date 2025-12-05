@@ -1,16 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Form, Button, Container, Card } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { crearServicioAPI, obtenerServiciosAPI } from '../../helpers/queries';
+import { editarServicioAPI, obtenerServicioPorIdAPI, obtenerServiciosAPI } from '../../helpers/queries';
 
-const CrearServicio = () => {
+const EditarServicio = () => {
     const [nombreServicio, setNombreServicio] = useState('');
     const [descripcion, setDescripcion] = useState('');
     const [precio, setPrecio] = useState('');
     const [imagen, setImagen] = useState('');
     
+    const { id } = useParams();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const cargarDatosServicio = async () => {
+            const respuesta = await obtenerServicioPorIdAPI(id);
+            if(respuesta && respuesta.status === 200){
+                const servicio = await respuesta.json();
+                setNombreServicio(servicio.nombreServicio);
+                setDescripcion(servicio.descripcion);
+                setPrecio(servicio.precio);
+                setImagen(servicio.imagen);
+            } else {
+                Swal.fire("Error", "No se pudo obtener el servicio", "error");
+            }
+        };
+        cargarDatosServicio();
+    }, [id]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,43 +37,32 @@ const CrearServicio = () => {
              Swal.fire("Error", "Todos los campos son obligatorios", "error");
              return;
         }
-
         if(precio < 0){
             Swal.fire("Error", "El precio debe ser mayor a 0", "error");
             return;
         }
 
-       
-        Swal.fire({
-            title: 'Verificando...',
-            didOpen: () => Swal.showLoading()
-        });
-
-        const respuestaServicios = await obtenerServiciosAPI();
         
+        const respuestaServicios = await obtenerServiciosAPI();
         if (respuestaServicios && respuestaServicios.status === 200) {
             const serviciosExistentes = await respuestaServicios.json();
             
-           
             const servicioDuplicado = serviciosExistentes.find(
-                (servicio) => servicio.nombreServicio.toLowerCase() === nombreServicio.toLowerCase()
+                (item) => item.nombreServicio.toLowerCase() === nombreServicio.toLowerCase() && item._id !== id
             );
 
             if (servicioDuplicado) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Servicio existente',
-                    text: `El servicio "${nombreServicio}" ya existe en la base de datos.`
+                    title: 'Nombre no disponible',
+                    text: `El servicio "${nombreServicio}" ya existe.`
                 });
-                return; 
+                return;
             }
-        } else {
-            Swal.fire("Error", "No se pudo verificar la disponibilidad", "error");
-            return;
         }
 
         
-        const nuevoServicio = {
+        const servicioActualizado = {
             nombreServicio,
             descripcion,
             precio: parseFloat(precio),
@@ -65,31 +71,30 @@ const CrearServicio = () => {
 
         
         Swal.fire({
-            title: 'Guardando...',
+            title: 'Actualizando...',
             allowOutsideClick: false,
             didOpen: () => Swal.showLoading()
         });
 
-        const respuesta = await crearServicioAPI(nuevoServicio);
+        const respuesta = await editarServicioAPI(servicioActualizado, id);
 
-        if(respuesta && respuesta.status === 201){
-            Swal.fire("Éxito", "El servicio fue creado correctamente", "success");
-            navigate('/administrador', { state: { section: 'servicios' } });
+        if(respuesta && respuesta.status === 200){
+            Swal.fire("Actualizado", "El servicio fue modificado correctamente", "success");
+            navigate('/administrador');
         } else {
-            const errorData = await respuesta.json();
-            Swal.fire("Error", errorData.mensaje || "Ocurrió un error al crear el servicio", "error");
+            Swal.fire("Error", "Ocurrió un error al editar el servicio", "error");
         }
     };
 
     const handleCancelar = () => {
-        navigate('/administrador', { state: { section: 'servicios' } });
-    };
+        navigate('/administrador');
+    }
 
     return (
         <Container className="mainSection my-5">
             <Card className="shadow">
-                <Card.Header className="bg-success text-white fw-bold">
-                    <h4>Nuevo Servicio</h4>
+                <Card.Header className="bg-warning text-dark fw-bold">
+                    <h4>Editar Servicio</h4>
                 </Card.Header>
                 <Card.Body>
                     <Form onSubmit={handleSubmit}>
@@ -97,7 +102,6 @@ const CrearServicio = () => {
                             <Form.Label>Nombre del Servicio</Form.Label>
                             <Form.Control 
                                 type="text" 
-                                placeholder="Ej: Baño y Corte"
                                 value={nombreServicio}
                                 onChange={(e) => setNombreServicio(e.target.value)}
                             />
@@ -107,7 +111,6 @@ const CrearServicio = () => {
                             <Form.Label>Precio</Form.Label>
                             <Form.Control 
                                 type="number" 
-                                placeholder="Ej: 5000"
                                 value={precio}
                                 onChange={(e) => setPrecio(e.target.value)}
                             />
@@ -117,13 +120,9 @@ const CrearServicio = () => {
                             <Form.Label>URL de Imagen</Form.Label>
                             <Form.Control 
                                 type="text" 
-                                placeholder="Ej: https://..."
                                 value={imagen}
                                 onChange={(e) => setImagen(e.target.value)}
                             />
-                            <Form.Text className="text-muted">
-                                Copia y pega una URL de imagen válida (terminada en .jpg, .png)
-                            </Form.Text>
                         </Form.Group>
 
                         <Form.Group className="mb-3">
@@ -131,23 +130,15 @@ const CrearServicio = () => {
                             <Form.Control 
                                 as="textarea" 
                                 rows={3} 
-                                placeholder="Breve descripción del tratamiento..."
                                 value={descripcion}
                                 onChange={(e) => setDescripcion(e.target.value)}
                             />
                         </Form.Group>
 
                         <div className="text-end">
-                            <Button 
-                                variant="secondary" 
-                                className="me-2" 
-                                onClick={handleCancelar}
-                                type="button"
-                            >
-                                Cancelar
-                            </Button>
-                            <Button variant="success" type="submit" className="px-4">
-                                Guardar Servicio
+                            <Button variant="secondary" className="me-2" onClick={handleCancelar}>Cancelar</Button>
+                            <Button variant="warning" type="submit" className="px-4">
+                                Guardar Cambios
                             </Button>
                         </div>
                     </Form>
@@ -157,4 +148,4 @@ const CrearServicio = () => {
     );
 };
 
-export default CrearServicio;
+export default EditarServicio;

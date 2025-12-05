@@ -14,7 +14,7 @@ const Error404 = () => {
             <h2 className="mb-4">¡Ups! Página no encontrada</h2>
             <p className="lead text-muted mb-4">
                 Parece que la página que buscas no existe o fue movida. 
-                Tal vez tu mascota se la comió... 🐶
+                Tal vez tu mascota se la comió...
             </p>
             <Button as={Link} to="/" variant="primary" size="lg" className="rounded-pill px-4">
                 Volver al Inicio

@@ -102,12 +102,6 @@ const AdministrarProfesionales = () => {
                     )}
                 </tbody>
             </Table>
-            
-            <div className="mt-4">
-                <Link to="/administrador" className="btn btn-secondary">
-                    <i className="bi bi-arrow-left me-2"></i>Volver al Panel Principal
-                </Link>
-            </div>
         </Container>
     );
 };

@@ -59,10 +59,10 @@ const Login = () => {
                 title: '¡Bienvenido!',
                 text: 'Ingresaste correctamente',
                 icon: 'success',
-                timer: 2000, 
+                timer: 1500, 
                 showConfirmButton: false 
             }).then(() => {
-                navigate('/administrador');
+                navigate('/');
             });
             
         } else {

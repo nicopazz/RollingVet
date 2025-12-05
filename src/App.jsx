@@ -8,6 +8,7 @@ import Registro from './components/views/Registro';
 import Administrador from './components/views/Administrador';
 import Error404 from './components/views/Error404';
 import AcercaDeNosotros from './components/views/AcercaDeNosotros';
+import AdministrarTurnos from './components/views/AdministrarTurnos';
 import CrearTurno from './components/views/CrearTurno';
 import EditarTurno from './components/views/EditarTurno';
 import CrearServicio from './components/views/CrearServicio';
@@ -40,6 +41,7 @@ function App() {
           <Route path="/administrador" element={<Administrador />} />
 
           {/* Rutas de turnos */}
+          <Route path="/administrador/turnos" element={<AdministrarTurnos />} />
           <Route path="/administrador/crear-turno" element={<CrearTurno />} />
           <Route path="/administrador/editar-turno/:id" element={<EditarTurno />} />
 

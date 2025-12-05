@@ -30,7 +30,7 @@ const CrearProfesional = () => {
 
         if(respuesta && respuesta.status === 201){
             Swal.fire("Éxito", "Profesional creado correctamente", "success");
-            navigate('/administrador/profesionales');
+            navigate('/administrador');
         } else {
             const errorData = await respuesta.json();
             Swal.fire("Error", errorData.mensaje || "Ocurrió un error", "error");

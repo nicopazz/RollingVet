@@ -14,6 +14,9 @@ import EditarTurno from './components/views/EditarTurno';
 import CrearServicio from './components/views/CrearServicio';
 import AdministrarServicios from './components/views/AdministrarServicios';
 import EditarServicio from './components/views/EditarServicio';
+import CrearProducto from './components/views/CrearProducto';
+import AdministrarProductos from './components/views/AdministrarProductos';
+import EditarProducto from './components/views/EditarProducto';
 import AdministrarProfesionales from './components/views/AdministrarProfesionales';
 import CrearProfesional from './components/views/CrearProfesional';
 import EditarProfesional from './components/views/EditarProfesional';
@@ -46,9 +49,15 @@ function App() {
           <Route path="/administrador/editar-turno/:id" element={<EditarTurno />} />
 
           {/* Rutas de servicios */}
-          <Route path="/administrador/crear-servicio" element={<CrearServicio />} />
           <Route path="/administrador/servicios" element={<AdministrarServicios />} />
+          <Route path="/administrador/crear-servicio" element={<CrearServicio />} />
           <Route path="/administrador/editar-servicio/:id" element={<EditarServicio />} />
+
+          {/* Rutas de productos */}
+          <Route path="/administrador/productos" element={<AdministrarProductos />} />
+          <Route path="/administrador/crear-producto" element={<CrearProducto />} />
+          <Route path="/administrador/editar-producto/:id" element={<EditarProducto />} />
+          
 
           {/* Rutas de profesionales */}
           <Route path="/administrador/profesionales" element={<AdministrarProfesionales />} />

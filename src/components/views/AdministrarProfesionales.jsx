@@ -131,12 +131,6 @@ const AdministrarProfesionales = () => {
                     Mostrando {profFiltrados.length} resultados
                 </Card.Footer>
             </Card>
-            
-            <div className="mt-4">
-                <Link to="/administrador" className="btn btn-secondary px-4">
-                    <i className="bi bi-arrow-left me-2"></i>Volver al Panel Principal
-                </Link>
-            </div>
         </div>
     );
 };

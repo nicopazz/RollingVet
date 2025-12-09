@@ -11,7 +11,7 @@ const EditarTurno = () => {
     const [fecha, setFecha] = useState('');
     const [hora, setHora] = useState('');
     const [estado, setEstado] = useState(''); 
-    const [profesionales, setProfesionales] = useState([]); //
+    const [profesionales, setProfesionales] = useState([]); 
     
     const { id } = useParams();
     const navigate = useNavigate();

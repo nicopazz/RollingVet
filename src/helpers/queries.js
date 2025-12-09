@@ -1,6 +1,7 @@
 const URL_USUARIO = import.meta.env.VITE_API_URL + '/auth';
 const URL_TURNOS = import.meta.env.VITE_API_URL + '/turnos';
 const URL_SERVICIOS = import.meta.env.VITE_API_URL + '/servicios';
+const URL_PRODUCTOS = import.meta.env.VITE_API_URL + '/productos';
 const URL_PROFESIONALES = import.meta.env.VITE_API_URL + '/profesionales';
 const URL_PACIENTES = import.meta.env.VITE_API_URL + '/pacientes';
 const URL_GESTION_USUARIOS = import.meta.env.VITE_API_URL + '/auth/usuarios';
@@ -246,6 +247,75 @@ export const editarServicioAPI = async (servicio, id) => {
         return respuesta;
     } catch (error) {
         console.log("Error en editarServicioAPI", error);
+        return false;
+    }
+}
+
+// --- PRODUCTOS ---
+
+export const obtenerProductosAPI = async () => {
+    try {
+        const respuesta = await fetch(URL_PRODUCTOS);
+        return respuesta;
+    } catch (error) {
+        console.log("Error en obtenerProductoAPI", error);
+        return false;
+    }
+}
+
+export const crearProductoAPI = async (producto) => {
+    try {
+        const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioRollingVet')) || {};
+        const token = usuarioLogueado.token;
+        const respuesta = await fetch(URL_PRODUCTOS, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "x-token": token },
+            body: JSON.stringify(producto)
+        });
+        return respuesta;
+    } catch (error) {
+        console.log("Error en crearProductoAPI", error);
+        return false;
+    }
+}
+
+export const borrarProductoAPI = async (id) => {
+    try {
+        const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioRollingVet')) || {};
+        const token = usuarioLogueado.token;
+        const respuesta = await fetch(`${URL_PRODUCTOS}/${id}`, {
+            method: "DELETE",
+            headers: { "x-token": token }
+        });
+        return respuesta;
+    } catch (error) {
+        console.log("Error en borrarProductoAPI", error);
+        return false;
+    }
+}
+
+export const obtenerProductoPorIdAPI = async (id) => {
+    try {
+        const respuesta = await fetch(`${URL_PRODUCTOS}/${id}`);
+        return respuesta;
+    } catch (error) {
+        console.log("Error en obtenerProductoPorIdAPI", error);
+        return false;
+    }
+}
+
+export const editarProductoAPI = async (producto, id) => {
+    try {
+        const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioRollingVet')) || {};
+        const token = usuarioLogueado.token;
+        const respuesta = await fetch(`${URL_PRODUCTOS}/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json", "x-token": token },
+            body: JSON.stringify(producto)
+        });
+        return respuesta;
+    } catch (error) {
+        console.log("Error en editarProductoAPI", error);
         return false;
     }
 }

@@ -8,22 +8,22 @@
 
 ### Vista Principal (Home)
 
-![Home](../inicio.png)
+![Home](./public/inicio.png)
 
 ### Panel de Administración (Dashboard)
 
-![Dashboard](../admin.png)
+![Dashboard](./public/admin.png)
 
 ### Reserva de Turnos
 
-![Turnos](../turnos.png)
+![Turnos](./public/turnos.png)
 
 🎥 Video Demo
 -------------
 
 ¡Mira el funcionamiento completo de la aplicación en este video!
 
-![Demo de la App](https://s5.ezgif.com/tmp/ezgif-58f8763fe572a159.gif)
+![Demo de la App](./public/video.gif)
 
 🚀 Tecnologías Utilizadas
 -------------------------

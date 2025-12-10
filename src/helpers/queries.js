@@ -182,6 +182,27 @@ export const editarTurnoAPI = async (turno, id) => {
     }
 }
 
+export const obtenerMisTurnosAPI = async () => {
+    try {
+        const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioRollingVet')) || {};
+        const token = usuarioLogueado.token;
+        const email = usuarioLogueado.email; 
+
+        
+        const respuesta = await fetch(`${import.meta.env.VITE_API_URL}/turnos?email=${email}`, {
+            method: "GET",
+            headers: {
+                "x-token": token, 
+                "Content-Type": "application/json"
+            }
+        });
+        return respuesta;
+    } catch (error) {
+        console.log("Error en obtenerMisTurnosAPI", error);
+        return false;
+    }
+}
+
 // --- SERVICIOS ---
 
 export const obtenerServiciosAPI = async () => {

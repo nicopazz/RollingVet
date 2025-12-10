@@ -26,6 +26,8 @@ import EditarPaciente from './components/views/EditarPaciente';
 import AdministrarUsuarios from './components/views/AdministrarUsuarios';
 import CrearUsuario from './components/views/CrearUsuario';
 import EditarUsuario from './components/views/EditarUsuario';
+import ReservarTurno from './components/views/ReservarTurno';
+import MisTurnos from './components/views/MisTurnos';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -39,6 +41,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/acerca-de-nosotros" element={<AcercaDeNosotros />} />
+          <Route path="/reservar-turno" element={<ReservarTurno />} />
+          <Route path="/mis-turnos" element={<MisTurnos />} />
           
           {/* Ruta de Administración */}
           <Route path="/administrador" element={<Administrador />} />

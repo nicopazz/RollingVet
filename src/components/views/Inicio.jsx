@@ -54,7 +54,7 @@ const Inicio = () => {
                             </p>
                             
                             <div className="d-flex flex-column flex-md-row gap-3 mb-4">
-                                <Button as={Link} to="/registro" variant="primary" size="lg" className="rounded-pill px-4 fw-bold">
+                                <Button as={Link} to="/reservar-turno" variant="primary" size="lg" className="rounded-pill px-4 fw-bold">
                                     RESERVAR TURNO
                                 </Button>
                                 <Button variant="outline-light" size="lg" className="rounded-pill px-4 fw-bold">

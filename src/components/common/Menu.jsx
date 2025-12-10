@@ -7,7 +7,13 @@ import Swal from "sweetalert2";
 
 const Menu = () => {
   const navigate = useNavigate();
+ 
   const usuarioLogueado = JSON.parse(localStorage.getItem("usuarioRollingVet"));
+
+  const esAdmin = usuarioLogueado && usuarioLogueado.rol === 'admin';
+ 
+  const estaLogueado = !!usuarioLogueado;
+
 
   const logout = () => {
     Swal.fire({
@@ -21,6 +27,7 @@ const Menu = () => {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
+        
         localStorage.removeItem("usuarioRollingVet");
         
         Swal.fire({
@@ -40,7 +47,7 @@ const Menu = () => {
     <Navbar expand="lg" className="bg-white py-3 shadow-sm sticky-top">
       <Container>
         <Navbar.Brand as={Link} to="/" className="fw-bold fs-3 text-primary">
-          RollingVet
+          [RollingVet]
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -57,7 +64,9 @@ const Menu = () => {
             >
               Nosotros
             </NavLink>
-            {usuarioLogueado && usuarioLogueado.rol === 'admin' && (
+
+           
+            {esAdmin && (
               <NavLink
                 end
                 className="nav-item nav-link mx-2"
@@ -67,11 +76,20 @@ const Menu = () => {
               </NavLink>
             )}
 
-            {usuarioLogueado ? (
+            
+            {estaLogueado && (
+              <NavLink end className="nav-item nav-link mx-2 fw-bold" to="/mis-turnos">
+                  Mis Turnos
+              </NavLink>
+            )}
+
+           
+            {estaLogueado ? (
               <>
+               
                 <div className="mx-3 text-dark d-flex align-items-center">
                   <i className="bi bi-person-circle fs-4 me-2 text-primary"></i>
-                  <span><span className="fw-bold text-primary">{usuarioLogueado.nombre}</span></span>
+                  <span>Hola, <span className="fw-bold text-primary">{usuarioLogueado.nombre}</span></span>
                 </div>
                 <Button
                   variant="danger"
@@ -83,11 +101,17 @@ const Menu = () => {
               </>
             ) : (
               <>
+                
+                <NavLink end className="nav-item nav-link mx-2" to="/registro">
+                  Registro
+                </NavLink>
                 <NavLink end className="nav-item nav-link mx-2" to="/login">
                   Ingresá<i className="bi bi-box-arrow-in-right ms-2 text-primary"></i>
                 </NavLink>
               </>
             )}
+            
+            
           </Nav>
         </Navbar.Collapse>
       </Container>

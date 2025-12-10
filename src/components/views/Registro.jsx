@@ -94,6 +94,7 @@ const Registro = () => {
                                 type="text" 
                                 placeholder="Ej: Juan Perez" 
                                 name="nombre"
+                                maxLength={50}
                                 value={inputs.nombre}
                                 onChange={handleChange}
                                 isInvalid={!!errores.nombre}
@@ -107,6 +108,7 @@ const Registro = () => {
                                 type="email" 
                                 placeholder="ejemplo@rollingvet.com" 
                                 name="email"
+                                maxLength={50}
                                 value={inputs.email}
                                 onChange={handleChange}
                                 isInvalid={!!errores.email}
@@ -120,6 +122,7 @@ const Registro = () => {
                                 type="password" 
                                 placeholder="Mínimo 6 caracteres" 
                                 name="password"
+                                maxLength={40}
                                 value={inputs.password}
                                 onChange={handleChange}
                                 isInvalid={!!errores.password}
@@ -133,6 +136,7 @@ const Registro = () => {
                                 type="password" 
                                 placeholder="Repite tu contraseña" 
                                 name="confirmPassword"
+                                maxLength={40}
                                 value={inputs.confirmPassword}
                                 onChange={handleChange}
                                 isInvalid={!!errores.confirmPassword}

@@ -70,6 +70,7 @@ const Contacto = () => {
                                 required 
                                 type="text" 
                                 name="user_name" 
+                                maxLength={50}
                                 placeholder="Ej: Juan Pérez" 
                             />
                             <Form.Control.Feedback type="invalid">Por favor ingresa tu nombre.</Form.Control.Feedback>
@@ -81,6 +82,7 @@ const Contacto = () => {
                                 required 
                                 type="email" 
                                 name="user_email" 
+                                maxLength={40}
                                 placeholder="Ej: juan@email.com" 
                             />
                             <Form.Control.Feedback type="invalid">Ingresa un email válido.</Form.Control.Feedback>
@@ -104,6 +106,7 @@ const Contacto = () => {
                                 required
                                 as="textarea" 
                                 name="message" 
+                                maxLength={500}
                                 rows={5} 
                                 placeholder="Escribe tu mensaje aquí..." 
                             />

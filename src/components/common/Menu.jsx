@@ -137,9 +137,6 @@ const Menu = () => {
               </>
             ) : (
               <>
-                <NavLink end className="nav-item nav-link mx-2" to="/registro">
-                  Registro
-                </NavLink>
                 <NavLink end className="nav-item nav-link mx-2" to="/login">
                   Ingresá<i className="bi bi-box-arrow-in-right ms-2 text-primary"></i>
                 </NavLink>

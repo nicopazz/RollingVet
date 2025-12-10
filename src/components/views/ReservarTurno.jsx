@@ -37,7 +37,7 @@ const ReservarTurno = () => {
     useEffect(() => {
         if (!usuarioLogueado) {
             Swal.fire({
-                title: 'Acceso Denegado',
+                title: 'Aviso',
                 text: 'Debes iniciar sesión para reservar un turno.',
                 icon: 'warning'
             }).then(() => navigate('/login'));

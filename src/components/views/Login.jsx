@@ -87,6 +87,7 @@ const Login = () => {
                                 type="email" 
                                 placeholder="ejemplo@rollingvet.com" 
                                 name="email"
+                                maxLength={50}
                                 value={inputs.email}
                                 onChange={handleChange}
                                 required 
@@ -99,6 +100,7 @@ const Login = () => {
                                 type="password" 
                                 placeholder="********" 
                                 name="password"
+                                maxLength={40}
                                 value={inputs.password}
                                 onChange={handleChange}
                                 required 

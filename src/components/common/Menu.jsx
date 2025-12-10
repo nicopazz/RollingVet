@@ -8,7 +8,6 @@ import { useEffect, useState } from "react"; // 1. Importamos hooks
 
 const Menu = () => {
   const navigate = useNavigate();
-  // Estado para el clima
   const [clima, setClima] = useState(null);
 
   const usuarioLogueado = JSON.parse(localStorage.getItem("usuarioRollingVet"));
@@ -18,7 +17,7 @@ const Menu = () => {
   useEffect(() => {
     const obtenerClima = async () => {
       try {
-        const API_KEY = '68dab17418cb75d7417143427469df76'; 
+        const API_KEY = import.meta.env.VITE_API_KEY;
         const ciudad = 'San Miguel de Tucuman';
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${API_KEY}&units=metric&lang=es`;
 

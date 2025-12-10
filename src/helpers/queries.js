@@ -188,7 +188,7 @@ export const obtenerMisTurnosAPI = async () => {
         const token = usuarioLogueado.token;
         const email = usuarioLogueado.email; 
 
-        
+       
         const respuesta = await fetch(`${import.meta.env.VITE_API_URL}/turnos?email=${email}`, {
             method: "GET",
             headers: {

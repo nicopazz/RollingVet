@@ -59,7 +59,9 @@ const AdministrarPacientes = () => {
     );
 
     return (
-        <Container fluid className="mainSection my-5 px-5">
+
+        <div className="px-4 py-3">
+    
            
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h1 className="display-5 fw-bold text-dark">Gestión de Pacientes</h1>
@@ -77,8 +79,8 @@ const AdministrarPacientes = () => {
                     </InputGroup>
                     
                     
-                    <Link to="/administrador/crear-paciente" className="btn btn-success rounded-pill px-3 d-flex align-items-center text-white">
-                        <i className="bi bi-plus-circle me-2"></i>Nuevo Paciente
+                    <Link to="/administrador/crear-paciente" className="btn btn-primary rounded-pill px-3 d-flex align-items-center text-white">
+                        <i className="bi bi-plus me-2"></i>Nuevo Paciente
                     </Link>
                 </div>
             </div>
@@ -153,7 +155,7 @@ const AdministrarPacientes = () => {
                     Mostrando {pacientesFiltrados.length} resultados
                 </Card.Footer>
             </Card>
-        </Container>
+        </div>
     );
 };
 

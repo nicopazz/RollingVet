@@ -73,8 +73,8 @@ const AdministrarProfesionales = () => {
                             onChange={(e) => setBusqueda(e.target.value)}
                         />
                     </InputGroup>
-                    <Link to="/administrador/crear-profesional" className="btn btn-info text-white rounded-pill px-3 d-flex align-items-center">
-                        <i className="bi bi-person-plus-fill me-2"></i>Nuevo Profesional
+                    <Link to="/administrador/crear-profesional" className="btn btn-primary text-white rounded-pill px-3 d-flex align-items-center">
+                        <i className="bi bi-plus me-2"></i>Nuevo Profesional
                     </Link>
                 </div>
             </div>

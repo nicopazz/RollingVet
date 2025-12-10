@@ -23,7 +23,6 @@ const Login = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         
-      
         if (!inputs.email || !inputs.password) {
             Swal.fire({
                 icon: 'error',
@@ -33,7 +32,6 @@ const Login = () => {
             return;
         }
 
-        
         Swal.fire({
             title: 'Iniciando sesión...',
             text: 'Por favor espere',
@@ -41,20 +39,20 @@ const Login = () => {
             didOpen: () => Swal.showLoading()
         });
 
-        
         const respuesta = await loginUsuarioAPI(inputs);
 
         if (respuesta && respuesta.status === 200) {
             const datos = await respuesta.json();
             
+            // CORRECCIÓN CLAVE: AGREGAMOS EL EMAIL A LOCALSTORAGE
             localStorage.setItem('usuarioRollingVet', JSON.stringify({
                 token: datos.token,
                 nombre: datos.nombre,
                 rol: datos.rol,
-                uid: datos.uid
+                uid: datos.uid,
+                email: inputs.email // <--- AÑADIDO: Ahora Mis Turnos lo puede leer
             }));
 
-            
             Swal.fire({
                 title: '¡Bienvenido!',
                 text: 'Ingresaste correctamente',

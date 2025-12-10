@@ -56,7 +56,7 @@ const AdministrarUsuarios = () => {
     );
 
     return (
-        <Container fluid className="mainSection my-5 px-5">
+        <div className="px-4 py-3">
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h1 className="display-5 fw-bold text-dark">Gestión de Usuarios</h1>
                 <div className="d-flex gap-3">
@@ -65,7 +65,7 @@ const AdministrarUsuarios = () => {
                         <Form.Control className="border-start-0 ps-0 shadow-none" placeholder="Buscar..." onChange={(e) => setBusqueda(e.target.value)}/>
                     </InputGroup>
                     <Link to="/administrador/crear-usuario" className="btn btn-primary rounded-pill px-3 d-flex align-items-center">
-                        <i className="bi bi-person-plus-fill me-2"></i>Nuevo Usuario
+                        <i className="bi bi-plus me-2"></i>Nuevo Usuario
                     </Link>
                 </div>
             </div>
@@ -110,7 +110,7 @@ const AdministrarUsuarios = () => {
                     Mostrando {usuariosFiltrados.length} usuarios
                 </Card.Footer>
             </Card>
-        </Container>
+        </div>
     );
 };
 

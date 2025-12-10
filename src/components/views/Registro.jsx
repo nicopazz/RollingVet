@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Container, Card, Form, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'; // <--- 1. Importamos Swal
 import { registrarUsuarioAPI } from '../../helpers/queries';
 
 const Registro = () => {
@@ -29,24 +30,57 @@ const Registro = () => {
         return errors;
     };
 
-    const handleSubmit = (event) => {
+    // 2. Hacemos la función async para esperar la respuesta de la API
+    const handleSubmit = async (event) => {
         event.preventDefault();
+        
+        // 3. Primero validamos localmente
         const errs = validate();
-        registrarUsuarioAPI(inputs);
-        
-        
         if (Object.keys(errs).length > 0) {
             setErrores(errs);
-            return;
+            return; // Si hay errores, no continuamos
         }
 
-       
-        console.log('Datos a enviar:', inputs);
-        setErrores({});
-        
-        
-        alert('¡Registro exitoso! Ahora puedes iniciar sesión con tu cuenta.');
-        navigate('/login'); 
+        try {
+            // 4. Intentamos registrar en la API
+            const respuesta = await registrarUsuarioAPI(inputs);
+
+            // Asumiendo que tu API devuelve un status 201 (Created) o 200 (OK) al tener éxito
+            if(respuesta.status === 201 || respuesta.status === 200){
+                setErrores({});
+                
+                // 5. Alerta de Éxito con Swal
+                Swal.fire({
+                    title: '¡Registro exitoso!',
+                    text: 'Ahora puedes iniciar sesión con tu cuenta.',
+                    icon: 'success',
+                    confirmButtonText: 'Iniciar Sesión',
+                    confirmButtonColor: '#0d6efd' // Color azul de bootstrap
+                }).then((result) => {
+                    // Esta parte se ejecuta cuando el usuario cierra la alerta
+                    if (result.isConfirmed) {
+                        navigate('/login'); 
+                    }
+                });
+
+            } else {
+                // Caso de error en el backend (ej: email ya existe)
+                // Es recomendable leer el mensaje que devuelve tu API
+                const data = await respuesta.json(); 
+                Swal.fire({
+                    title: 'Ocurrió un error',
+                    text: data.mensaje || 'No se pudo crear el usuario',
+                    icon: 'error'
+                });
+            }
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                title: 'Error de conexión',
+                text: 'Intente nuevamente más tarde',
+                icon: 'error'
+            });
+        }
     };
 
     return (

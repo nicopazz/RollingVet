@@ -17,7 +17,7 @@ const CrearUsuario = () => {
              Swal.fire("Error", "Todos los campos son obligatorios", "error"); return;
         }
         
-        // Validación duplicados
+        
         const res = await obtenerUsuariosAPI();
         if(res.status === 200){
             const users = await res.json();

@@ -80,7 +80,8 @@ const AdministrarTurnos = () => {
                         <thead className="bg-light border-bottom">
                             <tr>
                                 <th className="py-3 ps-4">Mascota</th>
-                                <th className="py-3">Veterinario</th>
+                                <th className="py-3">Profesional</th>
+                                 <th className="py-3">Descripcion</th>
                                 <th className="py-3">Fecha</th>
                                 <th className="py-3">Hora</th>
                                 <th className="py-3">Estado</th>
@@ -93,6 +94,7 @@ const AdministrarTurnos = () => {
                                     <tr key={turno._id} className="border-bottom">
                                         <td className="ps-4 fw-semibold text-primary">{turno.mascota}</td>
                                         <td>{turno.veterinario}</td>
+                                        <td>{turno.detalleCita}</td>
                                         <td>{new Date(turno.fecha).toLocaleDateString()}</td>
                                         <td>{turno.hora} hs</td>
                                         <td>

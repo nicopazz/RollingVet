@@ -28,6 +28,8 @@ import CrearUsuario from './components/views/CrearUsuario';
 import EditarUsuario from './components/views/EditarUsuario';
 import ReservarTurno from './components/views/ReservarTurno';
 import MisTurnos from './components/views/MisTurnos';
+import DetallePlan from './components/views/DetallePlan';
+import Contacto from './components/views/Contacto';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -43,6 +45,8 @@ function App() {
           <Route path="/acerca-de-nosotros" element={<AcercaDeNosotros />} />
           <Route path="/reservar-turno" element={<ReservarTurno />} />
           <Route path="/mis-turnos" element={<MisTurnos />} />
+          <Route exact path="/planes" element={<DetallePlan />} />
+          <Route path="/contacto" element={<Contacto />} />
           
           {/* Ruta de Administración */}
           <Route path="/administrador" element={<Administrador />} />

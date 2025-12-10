@@ -6,7 +6,7 @@ import { borrarProductoAPI, obtenerProductosAPI } from "../../helpers/queries";
 
 const AdministrarProductos = () => {
   const [productos, setProductos] = useState([]);
-  const [busqueda, setBusqueda] = useState(""); // 
+  const [busqueda, setBusqueda] = useState(""); 
   const navigate = useNavigate();
 
   const consultarAPI = useCallback(async () => {

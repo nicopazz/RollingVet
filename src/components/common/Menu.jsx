@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { useEffect, useState } from "react"; // 1. Importamos hooks
+import { useEffect, useState } from "react";
 
 const Menu = () => {
   const navigate = useNavigate();
@@ -67,8 +67,23 @@ const Menu = () => {
   return (
     <Navbar expand="lg" className="bg-white py-3 shadow-sm sticky-top">
       <Container>
-        <Navbar.Brand as={Link} to="/" className="fw-bold fs-3 text-primary">
-          [RollingVet]
+       <Navbar.Brand as={Link} to="/" className="fw-bold fs-3 text-primary d-flex align-items-center">
+          <div 
+            className="bg-primary me-2" 
+            style={{
+              width: '40px', 
+              height: '40px',
+              maskImage: `url(/imgpng.png)`,
+              WebkitMaskImage: `url(/imgpng.png)`,
+              maskSize: 'contain',
+              WebkitMaskSize: 'contain',
+              maskRepeat: 'no-repeat',
+              WebkitMaskRepeat: 'no-repeat',
+              maskPosition: 'center',
+              WebkitMaskPosition: 'center'
+            }}
+          ></div>
+          RollingVet
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -80,6 +95,9 @@ const Menu = () => {
             </NavLink>
             <NavLink end className="nav-item nav-link mx-2" to="/acerca-de-nosotros">
               Nosotros
+            </NavLink>
+            <NavLink end className="nav-item nav-link mx-2" to="/contacto">
+              Contacto
             </NavLink>
 
             {esAdmin && (

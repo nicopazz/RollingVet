@@ -6,7 +6,7 @@ import { borrarServicioAPI, obtenerServiciosAPI } from "../../helpers/queries";
 
 const AdministrarServicios = () => {
   const [servicios, setServicios] = useState([]);
-  const [busqueda, setBusqueda] = useState(""); // 1. Estado para el buscador
+  const [busqueda, setBusqueda] = useState(""); 
   const navigate = useNavigate();
 
   const consultarAPI = useCallback(async () => {
@@ -54,7 +54,6 @@ const AdministrarServicios = () => {
     });
   };
 
-  // 2. Lógica de filtrado (Busca por nombre o descripción)
   const serviciosFiltrados = servicios.filter((servicio) =>
     servicio.nombreServicio.toLowerCase().includes(busqueda.toLowerCase()) ||
     servicio.descripcion.toLowerCase().includes(busqueda.toLowerCase())
@@ -65,7 +64,6 @@ const AdministrarServicios = () => {
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1 className="display-5 fw-bold text-dark">Gestión de Servicios</h1>
         
-        {/* 3. Input del Buscador y Botón Nuevo Servicio agrupados */}
         <div className="d-flex gap-3">
             <InputGroup style={{ width: '300px' }}>
                 <InputGroup.Text className="bg-white border-end-0">

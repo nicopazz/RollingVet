@@ -1,12 +1,17 @@
 import { useEffect, useState, useCallback } from 'react';
-import { Container, Table, Button, Card, Form, InputGroup } from 'react-bootstrap';
+import { Table, Button, Card, Form, InputGroup, Pagination } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { Link, useNavigate } from 'react-router-dom';
 import { borrarPacienteAPI, obtenerPacientesAPI } from '../../helpers/queries';
 
 const AdministrarPacientes = () => {
     const [pacientes, setPacientes] = useState([]);
-    const [busqueda, setBusqueda] = useState(""); 
+    const [busqueda, setBusqueda] = useState("");
+    
+    
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10; 
+
     const navigate = useNavigate();
 
     const consultarAPI = useCallback(async () => {
@@ -29,6 +34,12 @@ const AdministrarPacientes = () => {
         }
     }, [consultarAPI, navigate]);
 
+    
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setCurrentPage(1);
+    }, [busqueda]);
+
     const borrarPaciente = (id) => {
         Swal.fire({
             title: '¿Estás seguro?',
@@ -44,7 +55,7 @@ const AdministrarPacientes = () => {
                 const respuesta = await borrarPacienteAPI(id);
                 if (respuesta && respuesta.status === 200) {
                     Swal.fire('Borrado!', 'El paciente ha sido eliminado.', 'success');
-                    consultarAPI(); 
+                    consultarAPI();
                 } else {
                     Swal.fire('Error', 'No se pudo eliminar el paciente', 'error');
                 }
@@ -52,17 +63,23 @@ const AdministrarPacientes = () => {
         })
     };
 
-    
+   
     const pacientesFiltrados = pacientes.filter(paciente => 
         paciente.nombreMascota.toLowerCase().includes(busqueda.toLowerCase()) || 
         (paciente.apellidoDuenio || paciente.apellidoDueño || "").toLowerCase().includes(busqueda.toLowerCase())
     );
 
-    return (
-
-        <div className="px-4 py-3">
     
-           
+    const totalPages = Math.ceil(pacientesFiltrados.length / itemsPerPage);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = pacientesFiltrados.slice(indexOfFirstItem, indexOfLastItem);
+
+    
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    return (
+        <div className="px-4 py-3">
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h1 className="display-5 fw-bold text-dark">Gestión de Pacientes</h1>
                 
@@ -78,7 +95,6 @@ const AdministrarPacientes = () => {
                         />
                     </InputGroup>
                     
-                    
                     <Link to="/administrador/crear-paciente" className="btn btn-primary rounded-pill px-3 d-flex align-items-center text-white">
                         <i className="bi bi-plus me-2"></i>Nuevo Paciente
                     </Link>
@@ -87,7 +103,6 @@ const AdministrarPacientes = () => {
             
             <hr className="mb-4" />
 
-           
             <Card className="border-0 shadow-sm">
                 <Card.Body className="p-0">
                     <Table hover responsive className="mb-0 align-middle">
@@ -101,8 +116,8 @@ const AdministrarPacientes = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {pacientesFiltrados.length > 0 ? (
-                                pacientesFiltrados.map((paciente) => (
+                            {currentItems.length > 0 ? (
+                                currentItems.map((paciente) => (
                                     <tr key={paciente._id} className="border-bottom">
                                         <td className="ps-4 fw-bold text-primary fs-5">{paciente.nombreMascota}</td>
                                         <td>
@@ -110,7 +125,6 @@ const AdministrarPacientes = () => {
                                             <span className="text-muted small">{paciente.raza}</span>
                                         </td>
                                         <td className="fw-semibold">
-                                            
                                             {paciente.apellidoDuenio || paciente.apellidoDueño}, {paciente.nombreDuenio || paciente.nombreDueño}
                                         </td>
                                         <td>
@@ -151,9 +165,33 @@ const AdministrarPacientes = () => {
                     </Table>
                 </Card.Body>
                 
-                <Card.Footer className="bg-white border-0 py-3 text-end text-muted small">
-                    Mostrando {pacientesFiltrados.length} resultados
-                </Card.Footer>
+               
+                {totalPages > 1 && (
+                    <Card.Footer className="bg-white border-0 py-3 d-flex justify-content-between align-items-center">
+                        <span className="text-muted small">
+                            Mostrando {indexOfFirstItem + 1} - {Math.min(indexOfLastItem, pacientesFiltrados.length)} de {pacientesFiltrados.length} resultados
+                        </span>
+                        <Pagination className="mb-0">
+                            <Pagination.Prev 
+                                onClick={() => paginate(currentPage - 1)} 
+                                disabled={currentPage === 1} 
+                            />
+                            {[...Array(totalPages)].map((_, index) => (
+                                <Pagination.Item 
+                                    key={index + 1} 
+                                    active={index + 1 === currentPage}
+                                    onClick={() => paginate(index + 1)}
+                                >
+                                    {index + 1}
+                                </Pagination.Item>
+                            ))}
+                            <Pagination.Next 
+                                onClick={() => paginate(currentPage + 1)} 
+                                disabled={currentPage === totalPages} 
+                            />
+                        </Pagination>
+                    </Card.Footer>
+                )}
             </Card>
         </div>
     );

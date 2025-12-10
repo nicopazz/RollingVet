@@ -52,7 +52,7 @@ const AdministrarProfesionales = () => {
         })
     };
 
-    // Filtrado
+    
     const profFiltrados = profesionales.filter(p => 
         p.nombre.toLowerCase().includes(busqueda.toLowerCase()) || 
         p.especialidad.toLowerCase().includes(busqueda.toLowerCase())

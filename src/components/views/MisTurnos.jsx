@@ -25,7 +25,7 @@ const MisTurnos = () => {
 
                 if (respuesta && respuesta.status === 200) {
                     const datos = await respuesta.json();
-                    setTurnos(datos); // Esto causa el re-render, pero como el useEffect tiene [], no se vuelve a disparar
+                    setTurnos(datos); 
                 } else if (respuesta && respuesta.status === 401) {
                     Swal.fire("Sesión Expirada", "Por favor, vuelve a iniciar sesión.", "warning").then(() => {
                         localStorage.removeItem('usuarioRollingVet');

@@ -44,13 +44,13 @@ const Login = () => {
         if (respuesta && respuesta.status === 200) {
             const datos = await respuesta.json();
             
-            // CORRECCIÓN CLAVE: AGREGAMOS EL EMAIL A LOCALSTORAGE
+           
             localStorage.setItem('usuarioRollingVet', JSON.stringify({
                 token: datos.token,
                 nombre: datos.nombre,
                 rol: datos.rol,
                 uid: datos.uid,
-                email: inputs.email // <--- AÑADIDO: Ahora Mis Turnos lo puede leer
+                email: inputs.email 
             }));
 
             Swal.fire({

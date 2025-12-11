@@ -339,14 +339,6 @@ const Inicio = () => {
                                                 <h5 className="fw-bold text-dark mb-1">{pro.nombre}</h5>
                                                 <span className="badge bg-light text-primary border border-primary-subtle rounded-pill mb-3 px-3">{pro.especialidad}</span>
                                             </div>
-                                            <div className="mt-auto d-flex gap-2 justify-content-center w-100">
-                                                <a href={`mailto:${pro.email}?subject=Consulta Veterinaria`} className="btn btn-outline-primary rounded-circle d-flex align-items-center justify-content-center shadow-sm" style={{ width: '40px', height: '40px' }}>
-                                                    <i className="bi bi-envelope-fill"></i>
-                                                </a>
-                                                <button className="btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center shadow-sm" style={{ width: '40px', height: '40px' }}>
-                                                    <i className="bi bi-linkedin"></i>
-                                                </button>
-                                            </div>
                                         </Card.Body>
                                     </Card>
                                 </Col>

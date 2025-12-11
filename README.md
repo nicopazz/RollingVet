@@ -169,6 +169,6 @@ Para explorar las funcionalidades de administrador, puedes utilizar el siguiente
 
 ## Demo
 
-* [rollingvet.com](demo)
+* [https://rollingvet-tuc.netlify.app/](https://rollingvet-tuc.netlify.app/)
 
 _Proyecto realizado como parte de la certificación Full Stack Developer._

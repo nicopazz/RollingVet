@@ -51,14 +51,14 @@ const Inicio = () => {
 
     return (
         <>
-           
+            {/* SECCIÓN BANNER PRINCIPAL MODIFICADA */}
             <section 
                 className="py-5 pb-lg-5 text-white d-flex align-items-center position-relative"
                 style={{
                     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.masquevets.com/images/blog/post9/Plan_de_marketing_veterinario.jpg')`,
                     backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    minHeight: '85vh',
+                    backgroundPosition: 'center top', 
+                    minHeight: '80vh',
                 }}
             >
                 <Container>

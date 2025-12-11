@@ -41,8 +41,8 @@ const AcercaDeNosotros = () => {
                             <Card.Footer className="bg-white border-0 pb-3">
                                 <div className="text-primary">
                                     <a href="https://www.linkedin.com/in/nicopazz/" className="bi bi-linkedin mx-2 fs-5" target='blank'></a>
-                                    <a href="#" className="bi bi-twitter mx-2 fs-5"></a>
-                                    <a href="#" className="bi bi-envelope-fill mx-2 fs-5"></a>
+                                    <a href="https://github.com/nicopazz" className="bi bi-github mx-2 fs-5" target='blank' ></a>
+                                    <a href="https://www.instagram.com/nicopazz" className="bi bi-instagram mx-2 fs-5"></a>
                                 </div>
                             </Card.Footer>
                         </Card>

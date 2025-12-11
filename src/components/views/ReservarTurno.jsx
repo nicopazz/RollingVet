@@ -97,7 +97,7 @@ const ReservarTurno = () => {
             let fin = 16;
 
             
-            if (veterinario === "Dra. Chin") {
+            if (veterinario === "Dra. Molina") {
                 inicio = 16;
                 fin = 24; 
             } else {
@@ -264,7 +264,7 @@ const ReservarTurno = () => {
                         </Form.Group>
 
                         <div className="text-end pt-3">
-                            <Button variant="secondary" className="me-2" onClick={() => navigate('/mis-turnos')}>Cancelar</Button>
+                            <Button variant="secondary" className="me-2" onClick={() => navigate('/')}>Cancelar</Button>
                             <Button variant="primary" type="submit" className="px-4">Confirmar Reserva</Button>
                         </div>
                     </Form>

@@ -111,7 +111,7 @@ const Inicio = () => {
             </div>
 
            
-            <section className="py-5 pt-lg-5 mt-4">
+            <section className="py-5 mt-4">
                 <Container>
                     <div className="text-center mb-5">
                         <h2 className="fw-bold text-primary">Planes de Salud</h2>

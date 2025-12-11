@@ -53,7 +53,7 @@ const Inicio = () => {
         <>
            
             <section 
-                className="py-5 text-white d-flex align-items-center"
+                className="py-5 pb-lg-5 text-white d-flex align-items-center position-relative"
                 style={{
                     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://www.masquevets.com/images/blog/post9/Plan_de_marketing_veterinario.jpg')`,
                     backgroundSize: 'cover',
@@ -88,15 +88,30 @@ const Inicio = () => {
             </section>
 
            
-            <div className="bg-danger text-white py-3 text-center fw-bold">
+            
+            <div 
+                className="bg-danger text-white py-3 shadow-lg h-auto position-relative"
+                style={{ 
+                    marginTop: '-10px',  
+                    zIndex: 10,          
+                    borderTop: '1px solid rgba(255,255,255,0.2)' 
+                }}
+            >
                 <Container>
-                    <i className="bi bi-exclamation-triangle-fill me-2"></i>
-                    ¿EMERGENCIA VETERINARIA? Estamos disponibles 24/7. Llama inmediatamente al 911-VET-HELP.
+                    <div className="d-flex flex-column flex-lg-row justify-content-center align-items-center text-center gap-2">
+                        <div className="d-flex align-items-center justify-content-center text-nowrap">
+                            <i className="bi bi-exclamation-triangle-fill fs-4 me-2"></i>
+                            <span className="fw-bold fs-5">¿EMERGENCIA VETERINARIA?</span>
+                        </div>
+                        <div className="fs-6">
+                            Estamos disponibles 24/7. Llama al <span className="fw-bold text-warning ms-1 fs-5">911-VET-HELP</span>
+                        </div>
+                    </div>
                 </Container>
             </div>
 
            
-            <section className="py-5">
+            <section className="py-5 pt-lg-5 mt-4">
                 <Container>
                     <div className="text-center mb-5">
                         <h2 className="fw-bold text-primary">Planes de Salud</h2>
@@ -187,8 +202,8 @@ const Inicio = () => {
                                                 {servicio.descripcion}
                                             </Card.Text>
                                             <div className="mt-2 d-grid">
-                                                <Button variant="outline-primary" className="rounded-pill fw-bold" size="sm">
-                                                    Ver Precio: ${servicio.precio}
+                                                <Button variant="outline-primary" as={Link} to="/reservar-turno" className="rounded-pill fw-bold" size="sm">
+                                                    Reservar Ahora
                                                 </Button>
                                             </div>
                                         </Card.Body>
@@ -230,7 +245,7 @@ const Inicio = () => {
                                             </Card.Text>
                                             <div className="mt-2 d-grid">
                                                 <Button variant="outline-primary" className="rounded-pill fw-bold" size="sm">
-                                                    Ver Precio: ${producto.precio}
+                                                     ${producto.precio}
                                                 </Button>
                                             </div>
                                         </Card.Body>

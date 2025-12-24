@@ -95,7 +95,7 @@ const AdministrarTurnos = () => {
                                         <td className="ps-4 fw-semibold text-primary">{turno.mascota}</td>
                                         <td>{turno.veterinario}</td>
                                         <td>{turno.detalleCita}</td>
-                                        <td>{new Date(turno.fecha).toLocaleDateString()}</td>
+                                        <td>{new Date(turno.fecha).toLocaleDateString('es-AR', { timeZone: 'UTC' })}</td>
                                         <td>{turno.hora} hs</td>
                                         <td>
                                             <span className={`badge rounded-pill px-3 py-2 ${
